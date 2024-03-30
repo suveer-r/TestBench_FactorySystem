@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class GridManager : Singleton<GridManager>
 {
-    [SerializeField] private GameObject gridSquarePrefab; // Prefab for the grid square
+    [SerializeField] private Factory gridSquarePrefab; // Prefab for the grid square
     [SerializeField] private int rows = 10; // Number of rows
     [SerializeField] private int columns = 10; // Number of columns
     [SerializeField] private float gridSize = 1.1f; // Size of each grid square
 
-    private GameObject[,] grid; // 2D array to store grid squares
+    private Factory[,] grid; // 2D array to store grid squares
 
     public int Rows { get => rows; }
     public int Columns { get => columns; }
@@ -31,10 +31,11 @@ public class GridManager : Singleton<GridManager>
                 Vector3 clickPosition = hit.point;
                 Vector2Int gridCoordinate = WorldToGridPosition(clickPosition);
                 Debug.Log("Clicked at grid coordinate: " + gridCoordinate);
-                GameObject clickedObject = GetObjectAtCoordinate(gridCoordinate);
+                Factory clickedObject = GetObjectAtCoordinate(gridCoordinate);
                 if (clickedObject != null)
                 {
                     Debug.Log("Object at clicked position: " + clickedObject.name);
+                    clickedObject.IncreaseLevel();
                 }
                 else
                 {
@@ -46,7 +47,7 @@ public class GridManager : Singleton<GridManager>
     #endregion
 
     #region Public API
-    public void PlaceObjectAtCoordinate(GameObject obj, Vector2Int coordinate)
+    public void PlaceObjectAtCoordinate(Factory obj, Vector2Int coordinate)
     {
         if (IsValidCoordinate(coordinate))
         {
@@ -59,7 +60,7 @@ public class GridManager : Singleton<GridManager>
         }
     }
 
-    public GameObject GetObjectAtCoordinate(Vector2Int coordinate)
+    public Factory GetObjectAtCoordinate(Vector2Int coordinate)
     {
         if (IsValidCoordinate(coordinate))
         {
@@ -71,15 +72,15 @@ public class GridManager : Singleton<GridManager>
             return null;
         }
     }
-    public GameObject[,] GetGrid()
+    public Factory[,] GetGrid()
     {
         return grid;
     }
 
-    public GameObject[] GetGridSquares()
+    public Factory[] GetGridSquares()
     {
         int totalGridSquares = rows * columns;
-        GameObject[] gridSquares = new GameObject[totalGridSquares];
+        Factory[] gridSquares = new Factory[totalGridSquares];
         int index = 0;
 
         // Loop through each grid square and add it to the array
@@ -99,7 +100,7 @@ public class GridManager : Singleton<GridManager>
     #region Private Methods
     private void GenerateGrid()
     {
-        grid = new GameObject[columns, rows]; // Initialize the grid array
+        grid = new Factory[columns, rows]; // Initialize the grid array
 
         // Loop through each row and column to create grid squares
         for (int x = 0; x < columns; x++)

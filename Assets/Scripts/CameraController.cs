@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float zOffset = -1.5f; // Additional zOffset around the objects
-    public float smoothSpeed = 0.125f; // Speed of camera movement
+    public Vector3 offset; 
+    public float smoothSpeed = 0.125f; 
 
-    private GridManager gridManager; // Reference to the GridManager
+    private GridManager gridManager; 
 
     private void Start()
     {
@@ -17,14 +17,9 @@ public class CameraController : MonoBehaviour
         // Calculate the bounding box of all objects in the grid
         Bounds bounds = CalculateBoundingBox();
 
-        // Calculate the target position based on the bounding box
         Vector3 targetPosition = bounds.center;
-        targetPosition.y = transform.position.y; // Keep the same y position as the camera
+        Vector3 desiredPosition = targetPosition + Vector3.left * offset.x + Vector3.up * offset.y + Vector3.forward * offset.z;
 
-        // Calculate desired camera position with zOffset
-        Vector3 desiredPosition = targetPosition - Vector3.forward * (bounds.extents.magnitude + zOffset);
-
-        // Smoothly move the camera towards the desired position
         transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
     }
 
@@ -40,16 +35,16 @@ public class CameraController : MonoBehaviour
         bool initialized = false;
 
         // Loop through all grid squares and include their positions in the bounding box
-        foreach (GameObject gridSquare in gridManager.GetGridSquares())
+        foreach (Factory gridSquare in gridManager.GetGridSquares())
         {
             if (!initialized)
             {
-                bounds = new Bounds(gridSquare.transform.position, Vector3.zero);
+                bounds = new Bounds(gridSquare.gameObject.transform.position, Vector3.zero);
                 initialized = true;
             }
             else
             {
-                bounds.Encapsulate(gridSquare.transform.position);
+                bounds.Encapsulate(gridSquare.gameObject.transform.position);
             }
         }
 

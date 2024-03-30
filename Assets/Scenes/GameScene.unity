@@ -161,7 +161,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.6
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -209,14 +209,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.5260809, y: 0.21706396, z: -0.14096297, w: 0.8100936}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 66, y: 30, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 5, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace2c9a3f8c4bd74a95b51cc2938c118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zOffset: -7.5
+  offset: {x: 0, y: 26, z: 0.5}
   smoothSpeed: 0.025
 --- !u!1 &1604839624
 GameObject:
@@ -345,10 +345,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cbbd0168cb580246aedb9757d146604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSquarePrefab: {fileID: 5477244349442974152, guid: a339feb7fc3c7ce4faf8f2a95a80bc4d, type: 3}
+  gridSquarePrefab: {fileID: 4270904804680219770, guid: a339feb7fc3c7ce4faf8f2a95a80bc4d, type: 3}
   rows: 10
   columns: 10
-  gridSize: 1.1
+  gridSize: 2.5
 --- !u!4 &1604839626
 Transform:
   m_ObjectHideFlags: 0
