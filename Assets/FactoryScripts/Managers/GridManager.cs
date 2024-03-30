@@ -21,26 +21,42 @@ public class GridManager : Singleton<GridManager>
 
     private void Update()
     {
+        // Mouse INput
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            HandleInput(Input.mousePosition);
+        }
 
-            if (Physics.Raycast(ray, out hit))
+        // Touch Input
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0); // Get the first touch
+
+            if (touch.phase == TouchPhase.Began)
             {
-                Vector3 clickPosition = hit.point;
-                Vector2Int gridCoordinate = WorldToGridPosition(clickPosition);
-                Debug.Log("Clicked at grid coordinate: " + gridCoordinate);
-                Factory clickedObject = GetObjectAtCoordinate(gridCoordinate);
-                if (clickedObject != null)
-                {
-                    Debug.Log("Object at clicked position: " + clickedObject.name);
-                    clickedObject.IncreaseLevel();
-                }
-                else
-                {
-                    Debug.Log("No object found at clicked position.");
-                }
+                HandleInput(touch.position);
+            }
+        }
+    }
+
+    private void HandleInput(Vector3 position)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(position);
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            Vector3 clickPosition = hit.point;
+            Vector2Int gridCoordinate = WorldToGridPosition(clickPosition);
+            Debug.Log("Clicked at grid coordinate: " + gridCoordinate);
+            Factory clickedObject = GetObjectAtCoordinate(gridCoordinate);
+            if (clickedObject != null)
+            {
+                Debug.Log("Object at clicked position: " + clickedObject.name);
+                clickedObject.IncreaseLevel();
+            }
+            else
+            {
+                Debug.Log("No object found at clicked position.");
             }
         }
     }
@@ -83,7 +99,6 @@ public class GridManager : Singleton<GridManager>
         Factory[] gridSquares = new Factory[totalGridSquares];
         int index = 0;
 
-        // Loop through each grid square and add it to the array
         for (int x = 0; x < columns; x++)
         {
             for (int y = 0; y < rows; y++)
@@ -108,7 +123,7 @@ public class GridManager : Singleton<GridManager>
             for (int y = 0; y < rows; y++)
             {
                 // Calculate position for the grid square
-                Vector3 position = new Vector3(x * gridSize, 0f, y * gridSize);
+                Vector3 position = new(x * gridSize, 0f, y * gridSize);
 
                 // Instantiate the grid square prefab at the calculated position
                 grid[x, y] = Instantiate(gridSquarePrefab, position, Quaternion.identity);

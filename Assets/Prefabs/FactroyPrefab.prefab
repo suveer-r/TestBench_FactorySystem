@@ -300,10 +300,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevel: 0
   gameObjectsPerLevel:
-  - {fileID: 5477244349252813674}
   - {fileID: 1975310242032097042}
   - {fileID: 6644437735314166544}
   - {fileID: 1409604794925957889}
+  factoryConfigs:
+  - {fileID: 11400000, guid: 3606cf1a4a22f434aa8ea48f5db1013f, type: 2}
+  - {fileID: 11400000, guid: 81da077e165cde64b91bc6cb4f0eac02, type: 2}
+  - {fileID: 11400000, guid: b4c56773a522c8d48a6f514de810c580, type: 2}
 --- !u!65 &6856150327439262759
 BoxCollider:
   m_ObjectHideFlags: 0

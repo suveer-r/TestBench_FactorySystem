@@ -6,6 +6,7 @@ public class Factory : MonoBehaviour
 {
     [SerializeField] private int currentLevel = 0;
     [SerializeField] private GameObject[] gameObjectsPerLevel;
+    [SerializeField] private FactoryConfig[] factoryConfigs;
 
     public int CurrentLevel { get => currentLevel; }
 
@@ -13,7 +14,7 @@ public class Factory : MonoBehaviour
     {
         for (int i = 0; i < gameObjectsPerLevel.Length; i++)
         {
-            gameObjectsPerLevel[i].SetActive(i == 0);
+            gameObjectsPerLevel[i].SetActive(false);
         }
     }
 
@@ -24,7 +25,7 @@ public class Factory : MonoBehaviour
 
     public void SetLevel(int level)
     {
-        if (level >= gameObjectsPerLevel.Length)
+        if (level > gameObjectsPerLevel.Length || currentLevel == level)
         {
             return;
         }
@@ -32,12 +33,17 @@ public class Factory : MonoBehaviour
         currentLevel = level;
         for (int i = 0; i < gameObjectsPerLevel.Length; i++)
         {
-            gameObjectsPerLevel[i].SetActive(i == level);
+            gameObjectsPerLevel[i].SetActive(i + 1  == level);
         }
     }
 
     public void IncreaseLevel()
     {
         SetLevel(currentLevel + 1);
+    }
+
+    public FactoryConfig GetFactoryConfig()
+    {
+        return factoryConfigs[currentLevel - 1];
     }
 }
