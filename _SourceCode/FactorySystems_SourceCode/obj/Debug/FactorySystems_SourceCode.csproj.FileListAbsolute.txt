@@ -1,0 +1,8 @@
+D:\_\_UnityProjects\FactorySystem\_SourceCode\FactorySystemsFactorySystems\obj\Debug\FactorySystems_SourceCode.csproj.AssemblyReference.cache
+D:\_\_UnityProjects\FactorySystem\_SourceCode\FactorySystemsFactorySystems\obj\Debug\FactorySystems_SourceCode.csproj.CoreCompileInputs.cache
+D:\_\_UnityProjects\FactorySystem\Assets\FactorySystems_SourceCode.dll
+D:\_\_UnityProjects\FactorySystem\Assets\FactorySystems_SourceCode.pdb
+D:\_\_UnityProjects\FactorySystem\_SourceCode\FactorySystemsFactorySystems\obj\Debug\FactorySystems_SourceCode.dll
+D:\_\_UnityProjects\FactorySystem\_SourceCode\FactorySystemsFactorySystems\obj\Debug\FactorySystems_SourceCode.pdb
+D:\_\_UnityProjects\FactorySystem\Assets\FactoryScripts\FactorySystems_SourceCode.dll
+D:\_\_UnityProjects\FactorySystem\Assets\FactoryScripts\FactorySystems_SourceCode.pdb

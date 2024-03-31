@@ -120,7 +120,7 @@ public class GridManager : Singleton<GridManager>
             for (int y = 0; y < rows; y++)
             {
                 // Calculate position for the grid square
-                Vector3 position = new(x * gridSize, 0f, y * gridSize);
+                Vector3 position = new Vector3(x * gridSize, 0f, y * gridSize);
 
                 // Instantiate the grid square prefab at the calculated position
                 grid[x, y] = Instantiate(gridSquarePrefab, position, Quaternion.identity);

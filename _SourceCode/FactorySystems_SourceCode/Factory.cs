@@ -62,7 +62,7 @@ public class Factory : MonoBehaviour
     {
         if (currentLevel >= factoryConfigs.Length)
         {
-            return factoryConfigs[^1];
+            return factoryConfigs[factoryConfigs.Length - 1];
         }
         return factoryConfigs[currentLevel];
     }

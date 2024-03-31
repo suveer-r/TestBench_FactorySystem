@@ -93,7 +93,7 @@ public static class DataHandler
 
     internal static List<int> GetFactoryLevels()
     {
-        List<int> factoriesLevels = new();
+        List<int> factoriesLevels = new List<int>();
 
         string serializedLevels = PlayerPrefs.GetString(CommonStrings.FactoryLevels, "");
 

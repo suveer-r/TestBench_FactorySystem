@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4494ad1f529066f4084a4bb2cdec058e, type: 3}
+  m_Script: {fileID: 160084957, guid: 60b69a6c03a0e59498fd9fd015a7bd93, type: 3}
   m_Name: Factory_Config_Level_3
   m_EditorClassIdentifier: 
   RateOfGemProduction: 3
