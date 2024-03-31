@@ -21,14 +21,13 @@ public class GridManager : Singleton<GridManager>
 
     private void Update()
     {
-        // Mouse INput
+        // Mouse Input
         if (Input.GetMouseButtonDown(0))
         {
             HandleInput(Input.mousePosition);
         }
-
         // Touch Input
-        if (Input.touchCount > 0)
+        else if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0); // Get the first touch
 
@@ -47,16 +46,14 @@ public class GridManager : Singleton<GridManager>
         {
             Vector3 clickPosition = hit.point;
             Vector2Int gridCoordinate = WorldToGridPosition(clickPosition);
-            Debug.Log("Clicked at grid coordinate: " + gridCoordinate);
             Factory clickedObject = GetObjectAtCoordinate(gridCoordinate);
             if (clickedObject != null)
             {
-                Debug.Log("Object at clicked position: " + clickedObject.name);
                 clickedObject.IncreaseLevel();
             }
             else
             {
-                Debug.Log("No object found at clicked position.");
+                Debug.LogError("No object found at clicked position.");
             }
         }
     }
@@ -127,8 +124,11 @@ public class GridManager : Singleton<GridManager>
 
                 // Instantiate the grid square prefab at the calculated position
                 grid[x, y] = Instantiate(gridSquarePrefab, position, Quaternion.identity);
+                FactoryManager.Instance.RegisterFactory(grid[x, y]);
             }
         }
+
+        FactoryManager.Instance.StartGame();
     }
 
     private Vector2Int WorldToGridPosition(Vector3 worldPosition)
