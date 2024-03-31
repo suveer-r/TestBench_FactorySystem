@@ -10,6 +10,7 @@ public class Factory : MonoBehaviour
     [SerializeField] private FactoryConfig[] factoryConfigs;
 
     public int CurrentLevel { get => currentLevel; }
+    public int MaxLevel {  get => factoryConfigs.Length; }
 
     private void Awake()
     {
@@ -55,6 +56,15 @@ public class Factory : MonoBehaviour
         }
 
         return factoryConfigs[currentLevel - 1];
+    }
+
+    public FactoryConfig GetFactoryConfigForNextLevel()
+    {
+        if (currentLevel >= factoryConfigs.Length)
+        {
+            return factoryConfigs[^1];
+        }
+        return factoryConfigs[currentLevel];
     }
 
     // Called from update every 1 second

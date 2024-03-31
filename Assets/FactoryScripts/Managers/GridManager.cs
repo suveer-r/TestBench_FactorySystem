@@ -49,7 +49,7 @@ public class GridManager : Singleton<GridManager>
             Factory clickedObject = GetObjectAtCoordinate(gridCoordinate);
             if (clickedObject != null)
             {
-                clickedObject.IncreaseLevel();
+                GameEvents.OnFactoryClicked?.Invoke(clickedObject);
             }
             else
             {
