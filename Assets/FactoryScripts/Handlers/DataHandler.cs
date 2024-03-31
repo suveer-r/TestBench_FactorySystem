@@ -29,6 +29,20 @@ public static class DataHandler
             PlayerPrefs.Save();
         }
     }
+
+    public static string CurrentPlayerName
+    {
+        get
+        {
+            return PlayerPrefs.GetString(CommonStrings.CurrentPlayerName, "");
+        }
+        set
+        {
+            PlayerPrefs.SetString(CommonStrings.CurrentPlayerName, value);
+            PlayerPrefs.Save();
+        }
+    }
+
     public static string CurrentLoginTime
     {
         get
@@ -57,6 +71,13 @@ public static class DataHandler
 
     internal static void SaveFactoryLevels(Factory[] factories)
     {
+        if (factories == null)
+        {
+            PlayerPrefs.SetString(CommonStrings.FactoryLevels, "");
+            PlayerPrefs.Save();
+            return;
+        }
+
         int[] levels = new int[factories.Length];
 
         for (int i = 0; i < factories.Length; i++)
@@ -93,5 +114,15 @@ public static class DataHandler
         }
 
         return factoriesLevels;
+    }
+
+    public static void ResetData()
+    {
+        CurrentPlayerName = "";
+        GameInitialized = false;
+        GemsCollected = 0;
+        CurrentLoginTime = "";
+        LastLogoutTime = "";
+        SaveFactoryLevels(null);
     }
 }
