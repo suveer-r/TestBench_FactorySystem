@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Factory : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Factory : MonoBehaviour
     [SerializeField] private GameObject[] gameObjectsPerLevel;
     [SerializeField] private FactoryConfig[] factoryConfigs;
 
+    private Vector3 originalPosition;
     public int CurrentLevel { get => currentLevel; }
     public int MaxLevel {  get => factoryConfigs.Length; }
 
@@ -18,6 +20,11 @@ public class Factory : MonoBehaviour
         {
             gameObjectsPerLevel[i].SetActive(false);
         }
+    }
+
+    private void Start()
+    {
+        originalPosition = transform.position;
     }
 
     public void SetLevel(int level)
@@ -72,7 +79,32 @@ public class Factory : MonoBehaviour
     {
         if (currentLevel > 0)
         {
+            StartCoroutine(ShakeObject());
             DataHandler.GemsCollected += factoryConfigs[currentLevel - 1].RateOfGemProduction;
         }
+    }
+
+
+    IEnumerator ShakeObject()
+    {
+        float shakeDuration = 0.5f;
+        float shakeMagnitude = 0.1f;
+
+        float elapsed = 0.0f;
+
+        while (elapsed < shakeDuration)
+        {
+            float x = originalPosition.x + Random.Range(-shakeMagnitude, shakeMagnitude);
+            float y = originalPosition.y + Random.Range(-shakeMagnitude, shakeMagnitude);
+            float z = originalPosition.z + Random.Range(-shakeMagnitude, shakeMagnitude);
+
+            transform.position = new Vector3(x, y, z);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        transform.position = originalPosition;
     }
 }
