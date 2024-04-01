@@ -26,15 +26,29 @@ public class FactoryManager : Singleton<FactoryManager>
         timePassed = 0f;
     }
 
-    protected override void OnDestroy()
+    public void QuitApp()
     {
         DateTimeHandler.GetCurrentDateTIme((TimeResponse d) =>
         {
+            Debug.Log("QUITTING");
             DataHandler.LastLogoutTime = d.datetime;
-        }, null);
+            DataHandler.SaveFactoryLevels(registeredFactories.ToArray());
 
-        DataHandler.SaveFactoryLevels(registeredFactories.ToArray());
-        base.OnDestroy();
+            if (Application.isEditor)
+            {
+                UnityEditor.EditorApplication.isPlaying = false;
+            }
+            else
+            {
+                Application.Quit();
+            }
+        }, (string error) =>
+        {
+            Debug.LogWarning($" Network error found: {error}. \n Quitting while resetting data!");
+            DataHandler.ResetData();
+            Application.Quit();
+        });
+
     }
 
     public void StartGame()

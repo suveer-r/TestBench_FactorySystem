@@ -19,6 +19,9 @@ public class UiManager : MonoBehaviour
     [Header("IAP Page")]
     [SerializeField] private GameObject iapPage;
 
+    [Header("Quit Button")]
+    [SerializeField] private Button quitButton;
+
     private Factory selectedFactory;
     private bool selectFactoryUiOpen = false;
 
@@ -33,7 +36,15 @@ public class UiManager : MonoBehaviour
         factorySelectUi.SetActive(false);
         selectFactoryUiOpen = false;
         createOrUpgradeButton.onClick.AddListener(CreateOrUpgradeBtnPressed);
+
+        quitButton.onClick.AddListener(QuitApp);
     }
+
+    private void QuitApp()
+    {
+        FactoryManager.Instance.QuitApp();
+    }
+
     private void Update()
     {
         if (!selectFactoryUiOpen)
