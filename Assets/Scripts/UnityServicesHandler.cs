@@ -21,8 +21,9 @@ public static class ProductIds
 }
 
 [DefaultExecutionOrder(-1)]
-public class IAPHandler : MonoBehaviour, IDetailedStoreListener, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
+public class UnityServicesHandler : MonoBehaviour, IDetailedStoreListener, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
+#if UNITY_EDITOR
     [Header("IAP")]
     [SerializeField] private GameObject iapPage;
     [SerializeField] private Button toggleIapPage;
@@ -31,7 +32,7 @@ public class IAPHandler : MonoBehaviour, IDetailedStoreListener, IUnityAdsInitia
     [SerializeField] private string environment = "staging";
 
     [Header("Unity Ads")]
-    [SerializeField] private string gameId = "test_game_id";
+    [SerializeField] private string gameId = "3003911";
 
     IStoreController storeController;
     private void Awake()
@@ -46,7 +47,10 @@ public class IAPHandler : MonoBehaviour, IDetailedStoreListener, IUnityAdsInitia
     {
         InitializePurchasing();
 
-        Advertisement.Initialize(gameId, testMode: true); // Set testMode to false for production
+        if (Advertisement.isSupported)
+        {
+            Advertisement.Initialize(gameId, testMode: true, this); // Set testMode to false for production
+        }
     }
 
     private bool IsSubscribedTo(Product subscription)
@@ -165,25 +169,43 @@ public class IAPHandler : MonoBehaviour, IDetailedStoreListener, IUnityAdsInitia
 
 
     #region UNITY_ADS
-    public void OnInitializationComplete() { }
+    public void OnInitializationComplete()
+    {
+        Debug.Log("Init Success");
+    }
 
-    public void OnInitializationFailed(UnityAdsInitializationError error, string message) { }
+    public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+    {
+        Debug.Log($"Init Failed: [{error}]: {message}");
+    }
 
     public void OnUnityAdsAdLoaded(string placementId)
     {
         if (placementId == ProductIds.g5_ad)
         {
-            Advertisement.Show(ProductIds.g5_ad);
+            Advertisement.Show(ProductIds.g5_ad, this);
         }
     }
 
-    public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message) { }
+    public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
+    {
+        Debug.Log($"Load Failed: [{error}:{placementId}] {message}");
+    }
 
-    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message) { }
+    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
+    {
+        Debug.Log($"OnUnityAdsShowFailure: [{error}]: {message}");
+    }
 
-    public void OnUnityAdsShowStart(string placementId) { }
+    public void OnUnityAdsShowStart(string placementId)
+    {
+        Debug.Log($"OnUnityAdsShowStart: {placementId}");
+    }
 
-    public void OnUnityAdsShowClick(string placementId) { }
+    public void OnUnityAdsShowClick(string placementId)
+    {
+        Debug.Log($"OnUnityAdsShowClick: {placementId}");
+    }
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
@@ -235,7 +257,7 @@ public class IAPHandler : MonoBehaviour, IDetailedStoreListener, IUnityAdsInitia
             case ProductIds.g5_ad:
                 if (Advertisement.isInitialized)
                 {
-                    Advertisement.Load(ProductIds.g5_ad);
+                    Advertisement.Load(ProductIds.g5_ad, this);
                 }
                 else
                 {
@@ -259,4 +281,5 @@ public class IAPHandler : MonoBehaviour, IDetailedStoreListener, IUnityAdsInitia
         iapPage.SetActive(!iapPage.activeSelf);
     }
 
+#endif
 }
