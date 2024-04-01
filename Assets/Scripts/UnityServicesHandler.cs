@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public static class ProductIds
@@ -252,6 +253,14 @@ public class UnityServicesHandler : MonoBehaviour, IDetailedStoreListener, IUnit
                 break;
 
             case ProductIds.no_ads:
+                DateTimeHandler.GetCurrentDateTIme((TimeResponse d) =>
+                {
+                    DateTime timeNow = DateTime.Parse(d.datetime);
+                    if (string.IsNullOrEmpty(DataHandler.AdFreeDayStartTime) || timeNow > DateTime.Parse(DataHandler.AdFreeDayStartTime).AddHours(24))
+                    {
+                        DataHandler.AdFreeDayStartTime = d.datetime;
+                    }
+                }, null);
                 break;
 
             case ProductIds.g5_ad:
@@ -266,6 +275,14 @@ public class UnityServicesHandler : MonoBehaviour, IDetailedStoreListener, IUnit
                 break;
 
             case ProductIds.no_ads_for_week:
+                DateTimeHandler.GetCurrentDateTIme((TimeResponse d) =>
+                {
+                    DateTime timeNow = DateTime.Parse(d.datetime);
+                    if (string.IsNullOrEmpty(DataHandler.AdFreeWeekStartTime) || timeNow > DateTime.Parse(DataHandler.AdFreeWeekStartTime).AddDays(7))
+                    {
+                        DataHandler.AdFreeWeekStartTime = d.datetime;
+                    }
+                }, null);
                 break;
         }
     }

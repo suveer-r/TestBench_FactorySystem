@@ -69,6 +69,31 @@ public static class DataHandler
         }
     }
 
+    public static string AdFreeWeekStartTime
+    {
+        get
+        {
+            return PlayerPrefs.GetString(CommonStrings.NoAdsForWeekStartTime, "");
+        }
+        set
+        {
+            PlayerPrefs.SetString(CommonStrings.NoAdsForWeekStartTime, value);
+            PlayerPrefs.Save();
+        }
+    }
+    public static string AdFreeDayStartTime
+    {
+        get
+        {
+            return PlayerPrefs.GetString(CommonStrings.NoAdsForDayStartTime, "");
+        }
+        set
+        {
+            PlayerPrefs.SetString(CommonStrings.NoAdsForDayStartTime, value);
+            PlayerPrefs.Save();
+        }
+    }
+
     internal static void SaveFactoryLevels(Factory[] factories)
     {
         if (factories == null)
