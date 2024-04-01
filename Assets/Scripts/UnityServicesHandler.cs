@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public static class ProductIds
@@ -21,10 +17,10 @@ public static class ProductIds
     public const string no_ads_for_week = "no_ads_for_week";
 }
 
+#if UNITY_EDITOR
 [DefaultExecutionOrder(-1)]
 public class UnityServicesHandler : MonoBehaviour, IDetailedStoreListener, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
-#if UNITY_EDITOR
     [Header("IAP")]
     [SerializeField] private GameObject iapPage;
     [SerializeField] private Button toggleIapPage;
@@ -298,5 +294,5 @@ public class UnityServicesHandler : MonoBehaviour, IDetailedStoreListener, IUnit
         iapPage.SetActive(!iapPage.activeSelf);
     }
 
-#endif
 }
+#endif
