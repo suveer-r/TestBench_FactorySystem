@@ -16,6 +16,9 @@ public class UiManager : MonoBehaviour
     [SerializeField] private Button createOrUpgradeButton;
     [SerializeField] private TextMeshProUGUI createOrUpgradeButtonText;
 
+    [Header("IAP Page")]
+    [SerializeField] private GameObject iapPage;
+
     private Factory selectedFactory;
     private bool selectFactoryUiOpen = false;
 
@@ -73,7 +76,7 @@ public class UiManager : MonoBehaviour
 
     private void OnFactoryClicked(Factory factory)
     {
-        if (!selectFactoryUiOpen && factory.CurrentLevel < factory.MaxLevel)
+        if (!iapPage.activeSelf && !selectFactoryUiOpen && factory.CurrentLevel < factory.MaxLevel)
         {
             selectedFactory = factory;
             selectFactoryUiOpen = true;
