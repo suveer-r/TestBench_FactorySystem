@@ -22,6 +22,14 @@ public class IntroSceneUi : MonoBehaviour
         waringModal.gameObject.SetActive(false);
     }
 
+    private void Start()
+    {
+        if (!string.IsNullOrEmpty(DataHandler.CurrentPlayerName))
+        {
+            inputField.SetTextWithoutNotify(DataHandler.CurrentPlayerName);
+        }
+    }
+
     private void CloseWarningModal()
     {
         waringModal.gameObject.SetActive(false);

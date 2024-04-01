@@ -26,7 +26,7 @@ public class FactoryManager : Singleton<FactoryManager>
         timePassed = 0f;
     }
 
-    protected override void OnApplicationQuit()
+    protected override void OnDestroy()
     {
         DateTimeHandler.GetCurrentDateTIme((TimeResponse d) =>
         {
@@ -34,8 +34,7 @@ public class FactoryManager : Singleton<FactoryManager>
         }, null);
 
         DataHandler.SaveFactoryLevels(registeredFactories.ToArray());
-
-        base.OnApplicationQuit();
+        base.OnDestroy();
     }
 
     public void StartGame()
