@@ -17,7 +17,6 @@ public static class ProductIds
     public const string no_ads_for_week = "no_ads_for_week";
 }
 
-#if UNITY_EDITOR
 [DefaultExecutionOrder(-1)]
 public class UnityServicesHandler : MonoBehaviour, IDetailedStoreListener, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
@@ -295,4 +294,3 @@ public class UnityServicesHandler : MonoBehaviour, IDetailedStoreListener, IUnit
     }
 
 }
-#endif
